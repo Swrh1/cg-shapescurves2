@@ -53,10 +53,14 @@ class Renderer {
         //   - variable `this.num_curve_sections` should be used for `num_edges`
         //   - variable `this.show_points` should be used to determine whether or not to render vertices
         
+        let line1 = {startx: 100, endx: 300, starty: 100, endy: 300};
+        let line2 = {startx: 100, endx: 400, starty: 100, endy: 300};
+
+        let curve1 = {p0: {x: 100, y: 100}, p1: {x: 10, y: 500}, p2: {x: 500, y: 500}, p3: {x: 250, y: 100}};
+        let curve2 = {p0: {x: 50, y: 50}, p1: {x: 55, y: 500}, p2: {x: 600, y: 50}, p3: {x: 750, y: 500}};
         
-        // Following line is example of drawing a single line
-        // (this should be removed after you implement the curve)
-        this.drawLine({x: 100, y: 100}, {x: 600, y: 300}, [255, 0, 0, 255], framebuffer);
+        this.drawBezierCurve(curve1.p0, curve1.p1, curve1.p2, curve1.p3, this.num_curve_sections, [255,0,0,255], framebuffer);
+        this.drawBezierCurve(curve2.p0, curve2.p1, curve2.p2, curve2.p3, this.num_curve_sections, [0,0,255,255], framebuffer);
     }
 
     // framebuffer:  canvas ctx image data
@@ -100,8 +104,30 @@ class Renderer {
     // framebuffer:  canvas ctx image data
     drawBezierCurve(p0, p1, p2, p3, num_edges, color, framebuffer) {
         // TODO: draw a sequence of straight lines to approximate a Bezier curve
-        
-        
+        let increment = 1/num_edges;
+        let start, end, xpos, ypos;
+        let t = 0;
+       while (t<1)
+       {
+            xpos = Math.pow(1-t, 3) * p0.x + 3*Math.pow(1-t,2)*t*p1.x+3*(1-t)*Math.pow(t,2)*p2.x + Math.pow(t,3)*p3.x;
+            ypos = Math.pow(1-t, 3) * p0.y + 3*Math.pow(1-t,2)*t*p1.y+3*(1-t)*Math.pow(t,2)*p2.y + Math.pow(t,3)*p3.y;
+
+            start = {x: parseInt(xpos), y: parseInt(ypos)};
+
+            t += increment;
+            if (t > 1)
+            {
+                t = 1;
+            }
+
+            xpos = Math.pow(1-t, 3) * p0.x + 3*Math.pow(1-t,2)*t*p1.x+3*(1-t)*Math.pow(t,2)*p2.x + Math.pow(t,3)*p3.x;
+            ypos = Math.pow(1-t, 3) * p0.y + 3*Math.pow(1-t,2)*t*p1.y+3*(1-t)*Math.pow(t,2)*p2.y + Math.pow(t,3)*p3.y;
+
+            end = {x: parseInt(xpos), y: parseInt(ypos)};
+
+            this.drawLine(start, end, color, framebuffer);
+            //If we want to show points do so here
+       }
     }
 
     // center:       object {x: __, y: __}
