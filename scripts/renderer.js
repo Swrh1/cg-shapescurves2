@@ -52,10 +52,6 @@ class Renderer {
         // TODO: draw at least 2 Bezier curves
         //   - variable `this.num_curve_sections` should be used for `num_edges`
         //   - variable `this.show_points` should be used to determine whether or not to render vertices
-        
-        let line1 = {startx: 100, endx: 300, starty: 100, endy: 300};
-        let line2 = {startx: 100, endx: 400, starty: 100, endy: 300};
-
         let curve1 = {p0: {x: 100, y: 100}, p1: {x: 10, y: 500}, p2: {x: 500, y: 500}, p3: {x: 250, y: 100}};
         let curve2 = {p0: {x: 50, y: 50}, p1: {x: 55, y: 500}, p2: {x: 600, y: 50}, p3: {x: 750, y: 500}};
         
@@ -106,8 +102,56 @@ class Renderer {
         // TODO: draw your name!
         //   - variable `this.num_curve_sections` should be used for `num_edges`
         //   - variable `this.show_points` should be used to determine whether or not to render vertices
-        
-        
+        //S
+        let curve1 = {p0: {x: 10, y: 200}, p1: {x: 500, y: 200}, p2: {x: -200, y: 400}, p3: {x: 200, y: 400}};
+        this.drawBezierCurve(curve1.p0, curve1.p1, curve1.p2, curve1.p3, this.num_curve_sections, [255,0,0,255], framebuffer);
+        //E
+        let p1 = {x:250,y:200};
+        let p2 = {x:255,y:200};
+        let p4 = {x:250,y:405};
+        let p3 = {x:255,y:405};
+        let vertex_list = [p1,p2,p3,p4];
+        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        p1 = {x:255,y:200};
+        p2 = {x:255,y:205};
+        p3 = {x:355,y:205};
+        p4 = {x:355,y:200};
+        vertex_list = [p1,p2,p3,p4];
+        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        p1 = {x:255,y:400};
+        p2 = {x:255,y:405};
+        p3 = {x:355,y:405};
+        p4 = {x:355,y:400};
+        vertex_list = [p1,p2,p3,p4];
+        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        p1 = {x:255,y:300};
+        p2 = {x:255,y:305};
+        p3 = {x:355,y:305};
+        p4 = {x:355,y:300};
+        vertex_list = [p1,p2,p3,p4];
+        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        //T
+        p1 = {x: 405, y: 405};
+        p2 = {x: 505, y: 405};
+        this.drawLine(p1,p2,[255,0,0,255],framebuffer);
+        p1 = {x: 450, y: 405};
+        p2 = {x: 450, y: 200};
+        this.drawLine(p1,p2,[255,0,0,255],framebuffer);
+        //H
+        for (let i = 200; i<405 ; i+=5)
+        {
+            p1 = {x:555, y: i};
+            p2 = {x:655, y:i};
+            this.drawCircle(p1, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+            this.drawCircle(p2, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+        }
+        for (let i = 555; i<655 ; i+=5)
+        {
+            p1 = {x:i, y:300};
+            p2 = {x:i, y:300};
+            this.drawCircle(p1, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+            this.drawCircle(p2, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+        }
     }
 
     // p0:           object {x: __, y: __}
