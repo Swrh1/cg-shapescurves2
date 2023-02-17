@@ -111,46 +111,46 @@ class Renderer {
         let p4 = {x:250,y:405};
         let p3 = {x:255,y:405};
         let vertex_list = [p1,p2,p3,p4];
-        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        this.drawConvexPolygon(vertex_list,[0,255,0,255],framebuffer);
         p1 = {x:255,y:200};
         p2 = {x:255,y:205};
         p3 = {x:355,y:205};
         p4 = {x:355,y:200};
         vertex_list = [p1,p2,p3,p4];
-        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        this.drawConvexPolygon(vertex_list,[0,255,0,255],framebuffer);
         p1 = {x:255,y:400};
         p2 = {x:255,y:405};
         p3 = {x:355,y:405};
         p4 = {x:355,y:400};
         vertex_list = [p1,p2,p3,p4];
-        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        this.drawConvexPolygon(vertex_list,[0,255,0,255],framebuffer);
         p1 = {x:255,y:300};
         p2 = {x:255,y:305};
         p3 = {x:355,y:305};
         p4 = {x:355,y:300};
         vertex_list = [p1,p2,p3,p4];
-        this.drawConvexPolygon(vertex_list,[255,0,0,255],framebuffer);
+        this.drawConvexPolygon(vertex_list,[0,255,0,255],framebuffer);
         //T
         p1 = {x: 405, y: 405};
         p2 = {x: 505, y: 405};
-        this.drawLine(p1,p2,[255,0,0,255],framebuffer);
+        this.drawLine(p1,p2,[255,0,255,255],framebuffer);
         p1 = {x: 450, y: 405};
         p2 = {x: 450, y: 200};
-        this.drawLine(p1,p2,[255,0,0,255],framebuffer);
+        this.drawLine(p1,p2,[255,0,255,255],framebuffer);
         //H
         for (let i = 200; i<405 ; i+=5)
         {
             p1 = {x:555, y: i};
             p2 = {x:655, y:i};
-            this.drawCircle(p1, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
-            this.drawCircle(p2, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+            this.drawCircle(p1, 4, this.num_curve_sections, [0,0,255,255],framebuffer);
+            this.drawCircle(p2, 4, this.num_curve_sections, [0,0,255,255],framebuffer);
         }
         for (let i = 555; i<655 ; i+=5)
         {
             p1 = {x:i, y:300};
             p2 = {x:i, y:300};
-            this.drawCircle(p1, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
-            this.drawCircle(p2, 4, this.num_curve_sections, [255,0,0,255],framebuffer);
+            this.drawCircle(p1, 4, this.num_curve_sections, [0,0,255,255],framebuffer);
+            this.drawCircle(p2, 4, this.num_curve_sections, [0,0,255,255],framebuffer);
         }
     }
 
@@ -193,7 +193,10 @@ class Renderer {
         }
         if (this.show_points)
         {
-            this.drawPoint(end, color,framebuffer);
+            this.drawPoint(p0, color,framebuffer);
+            this.drawPoint(p1, [0,255,255,255],framebuffer);
+            this.drawPoint(p2, [0,255,255,255],framebuffer);
+            this.drawPoint(p3, color,framebuffer);
         }
     }
 
@@ -234,6 +237,10 @@ class Renderer {
 
     drawPoint(point,color,framebuffer)
     {
+        if (point.x<0 || point.y<0)
+        {
+            return;
+        }
         let num_edges = 10;
         let radius = 3;
         let increment = 2*Math.PI / num_edges;
@@ -383,9 +390,11 @@ class Renderer {
     
     drawTriangle(p0r, p1r, p2r, color, framebuffer) {
         //Had to add this in becasue it was creating a shallow copy and messing up my points
+        ///
         let p0 = {x:p0r.x, y:p0r.y};
         let p1 = {x:p1r.x, y:p1r.y};
         let p2 = {x:p2r.x, y:p2r.y};
+        ///
 
         // Sort points in ascending y order
         if (p1.y < p0.y) this.swapPoints(p0, p1);
